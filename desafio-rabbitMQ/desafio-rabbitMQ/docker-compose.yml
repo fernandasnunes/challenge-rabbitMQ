@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  desafio-rabbitmq-app:
+    build:
+      context: .  
+      dockerfile: Dockerfile  
+    ports:
+      - "8090:8090"
+    depends_on:
+      - rabbitmq
+      - mongo
+    environment:
+      - SPRING_APPLICATION_NAME=desafio-rabbitMQ
+      - SERVER_PORT=8090
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_DATA_MONGODB_HOST=mongo
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_USERNAME=admin
+      - SPRING_DATA_MONGODB_PASSWORD=adminpass
+      - SPRING_DATA_MONGODB_DATABASE=desafio-rabbitMQ
+    networks:
+      - desafio-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - desafio-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpass
+    networks:
+      - desafio-network
+
+networks:
+  desafio-network:
+    driver: bridge
