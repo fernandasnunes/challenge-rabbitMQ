@@ -49,6 +49,9 @@ A aplicação expõe os seguintes endpoints:
 1. **POST /pedidos/enviar**
 
    - **Descrição**: Cria um novo pedido e o publica no RabbitMQ.
+
+   ![Exemplo Sucesso](images/sucesso.png)
+
    - **Request Body**:
      ```json
      { 
@@ -116,6 +119,12 @@ A aplicação expõe os seguintes endpoints:
 
 - **Erro de Negócio**:
 
+Erros mapeados como regras de negócio fortes para a equipe de negócio.
+
+![Exemplo Erro Negocio](images/erronegocio.png)
+
+Exemplo:
+
 ```json
 {
 "codigo": 100,
@@ -128,8 +137,22 @@ A aplicação expõe os seguintes endpoints:
 
 ## Erro Técnico
 
-Exemplo:
 Erros não conhecidos, como problemas ao inserir um pedido, são registrados nos logs.
+![Exemplo Erro Tecnico](images/errotecnico.png)
+
+Exemplo:
+
+```json
+{
+	"codigo": 899,
+	"mensagem": "Ocorreu uma falha técnica ao processar a requisição.",
+	"detalhes": [
+		"Erro ao guardar pedido",
+		"java.net.ConnectException: Connection refused (Connection refused)",
+		"Connection refused (Connection refused)"
+	]
+}
+```
 
 ## Execução da Aplicação
 
@@ -165,6 +188,11 @@ Após iniciar os containers, altere o arquivo application.yml da aplicação par
 # Visualizar Dados:
 
 Utilize o MongoDB Compass para visualizar e gerenciar os dados armazenados no MongoDB.
+
+**Exemplo:**
+![Exemplo](images/mongocompass.png)
+
+
 ## Testes
 A aplicação contém testes manuais e de componente para garantir a validade das funcionalidades e a integridade da aplicação. Os testes ajudam a identificar erros e garantir que a aplicação esteja funcionando conforme o esperado.
 
