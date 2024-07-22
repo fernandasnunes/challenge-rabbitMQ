@@ -8,46 +8,18 @@ Esta aplicação é uma API REST desenvolvida em Java 11 utilizando o framework 
 
 A aplicação segue uma arquitetura hexagonal. O diagrama a seguir ilustra a estrutura da aplicação:
 
-+-------------------+
-| |
-| Interface Externa|
-| (API REST) |
-| |
-+--------+----------+
-|
-| HTTP Requests
-|
-+--------v----------+
-| |
-| Adapters (REST) |
-| |
-+--------+----------+
-|
-| Calls to
-|
-+--------v----------+
-| |
-| Application |
-| Business Logic |
-| |
-+--------+----------+
-|
-| Data Access
-|
-+--------v----------+
-| |
-| Ports (Interfaces)|
-| |
-+--------+----------+
-|
-| Messages / Events
-|
-+--------v----------+ +----------------+
-| | | |
-| RabbitMQ Broker | <---> | MongoDB |
-| | | |
-+-------------------+ +----------------+
+# Estrutura
 
+- **Interface Externa (API REST)**
+  - HTTP Requests
+    - Adapters (REST)
+      - Calls to
+        - **Application Business Logic**
+          - Data Access
+            - Ports (Interfaces)
+              - Messages / Events
+                - RabbitMQ Broker
+                - MongoDB
 ## Benefícios da Arquitetura Hexagonal
 
 A arquitetura hexagonal, também conhecida como Arquitetura de Portas e Adaptadores, oferece diversos benefícios:
